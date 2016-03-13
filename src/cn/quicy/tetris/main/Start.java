@@ -24,8 +24,9 @@ public class Start
 		//Create game frame(Install game panel)
 		new JFrameGame(jPanelGame);
 		//TODO ！！！！要做的事情！！！！
-		//暂停按钮--要搞定 
+		//暂停按钮--要搞定 --------还没有开始的时候不显示暂停图标，没有开始的时候不能动。
 		//结束游戏时的提示  
+		//DrawString比较慢怎么破
 		//设置按钮，主题啥的   
 		//硬编码问题，写配置文件   
 		// 数据库

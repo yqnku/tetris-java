@@ -17,10 +17,15 @@ public class GameService
 	}
 	public void KeyUp() 
 	{
+		if(this.gameDto.isPause())
+			return;
 		this.gameDto.getGameAct().Rotate(this.gameDto.getGameMap());
 	}
 	public void KeyDown() 
 	{
+		if(this.gameDto.isPause())
+			return;
+		//TODO 这个地方的逻辑
 		if(this.gameDto.getGameAct().Move(0, 1,this.gameDto.getGameMap()))
 		{
 			return;
@@ -41,10 +46,14 @@ public class GameService
 	
 	public void KeyLeft() 
 	{
+		if(this.gameDto.isPause())
+			return;
 		this.gameDto.getGameAct().Move(-1, 0,this.gameDto.getGameMap());
 	}
 	public void KeyRight() 
 	{
+		if(this.gameDto.isPause())
+			return;
 		this.gameDto.getGameAct().Move(1, 0,this.gameDto.getGameMap());
 	}
 	private boolean CanRemoveLine(int y,boolean[][] map) 

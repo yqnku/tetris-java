@@ -31,7 +31,7 @@ public class GameController
 	public void KeyUp() 
 	{
 		this.gameService.KeyUp();
-		this.jPanelGame.repaint();
+		this.rePaint();
 	}
 	/**
 	 * Key Down
@@ -39,7 +39,7 @@ public class GameController
 	public void KeyDown() 
 	{
 		this.gameService.KeyDown();
-		this.jPanelGame.repaint();
+		this.rePaint();
 	}
 	/**
 	 * Key Left
@@ -47,7 +47,7 @@ public class GameController
 	public void KeyLeft() 
 	{
 		this.gameService.KeyLeft();
-		this.jPanelGame.repaint();
+		this.rePaint();
 	}
 	/**
 	 * Key Right
@@ -55,6 +55,10 @@ public class GameController
 	public void KeyRight() 
 	{
 		this.gameService.KeyRight();
+		this.rePaint();
+	}
+	public void rePaint()
+	{
 		this.jPanelGame.repaint();
 	}
 }

@@ -23,7 +23,7 @@ public class GameDto
 	 * "false" representative there is not a diamond
 	 */
 	private boolean[][] gameMap;
-	//TODO annotation
+	//TODO 注释
 	private GameAct gameAct;
 	/**
 	 * Type of diamonds counts
@@ -67,10 +67,9 @@ public class GameDto
 		this.nowScores = 0;
 		this.nowRemoveLine = 0;
 		this.next = new Random().nextInt(TYPE_COUNT);
-		//TODO 这个地方到底应该是true还是false呢
-		this.pause = false;
+		//TODO isStart
+		this.pause = true;
 		this.gameMap = new boolean[10][18];
-		//TODO 数据操作？ LeaderBoardsDTO
 		this.globalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
 		this.personalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
 		for (int i = 0 ; i < 4 ; i++)

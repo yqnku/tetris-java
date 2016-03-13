@@ -1,6 +1,8 @@
 package cn.quicy.tetris.controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import cn.quicy.tetris.dto.GameDto;
 /**
  * Play Controller
  * @author quicy
@@ -15,6 +17,7 @@ public class PlayerController extends KeyAdapter
 	 * Constructor
 	 * @param gameController
 	 */
+	private GameDto gameDto;
 	public PlayerController(GameController gameController)
 	{
 		this.gameController = gameController;
@@ -41,29 +44,35 @@ public class PlayerController extends KeyAdapter
 	/**
 	 * Start and Pause function
 	 */
-	public void Start()
+	public void Start(GameDto gameDto)
 	{
 		//TODO 很多要改的地方
-		Thread thread = new Thread()
+		this.gameDto = gameDto;
+		Thread thread = new MainThread();
+		thread.start();
+	}
+	private class MainThread extends Thread
+	{
+		@Override
+		public void run() 
 		{
-			@Override
-			public void run() 
+			while (true)
 			{
-				while (true)
-				{
-					try 
+				try 
+				{	
+					sleep(500);
+					if(gameDto.isPause())
 					{
-						gameController.KeyDown();
-						sleep(1000);
-					} 
-					catch (InterruptedException e) 
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						gameController.rePaint();
+						continue;
 					}
+					gameController.KeyDown();
+				} 
+				catch (InterruptedException e) 
+				{
+					e.printStackTrace();
 				}
 			}
-		};
-		thread.start();
+		}
 	}
 }

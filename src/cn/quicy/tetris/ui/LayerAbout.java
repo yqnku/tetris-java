@@ -31,7 +31,6 @@ public class LayerAbout extends Layer
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
-		//TODO padding--configure
 		this.DrawImageAtCenter(g, ABOUT_IMG);
 	}
 }

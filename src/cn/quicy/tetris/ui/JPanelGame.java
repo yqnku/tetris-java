@@ -77,7 +77,6 @@ public class JPanelGame extends JPanel
 	 * Set start/pause button
 	 * @param playerControl
 	 */
-	//TODO 暂停按钮
 	private void Start(final PlayerController playerControl)
 	{
 		this.jButtonStart = new JButton(new ImageIcon("graphics/string/start.png"));
@@ -89,17 +88,16 @@ public class JPanelGame extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//TODO 开始暂停---这块也很麻烦呢---理不清的头绪
-				if (gameDto.isPause())
+				if (!gameDto.isPause())
 				{
 					jButtonStart.setIcon(new ImageIcon("graphics/string/start.png"));
-					//gameDto.ChangeStatus();
+					gameDto.ChangeStatus();
 				}
 				else 
 				{
 					jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
-					playerControl.Start();
-					//gameDto.ChangeStatus();
+					playerControl.Start(gameDto);
+					gameDto.ChangeStatus();
 				}
 			}
 		});
