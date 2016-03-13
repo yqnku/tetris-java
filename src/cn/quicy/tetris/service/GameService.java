@@ -25,13 +25,23 @@ public class GameService
 	{
 		if(this.gameDto.isPause())
 			return;
-		//TODO 这个地方的逻辑
+		//如果不能移动的话，则直接返回
 		if(this.gameDto.getGameAct().Move(0, 1,this.gameDto.getGameMap()))
 		{
 			return;
 		}
 		boolean[][] map = this.gameDto.getGameMap();
 		Point[] points = this.gameDto.getGameAct().getActPoints();
+		for (int i = 0; i < points.length; i++) 
+		{
+			if(!map[points[i].x][points[i].y])
+			{
+				continue;
+			}
+			//TODO Game Over
+			System.out.println("game over");
+			return;
+		}
 		for (int i = 0; i < points.length; i++) 
 		{
 			map[points[i].x][points[i].y] = true;
@@ -43,7 +53,6 @@ public class GameService
 		this.gameDto.getGameAct().Init(this.gameDto.getNext());
 		this.gameDto.setNext(new Random().nextInt(7));
 	}
-	
 	public void KeyLeft() 
 	{
 		if(this.gameDto.isPause())

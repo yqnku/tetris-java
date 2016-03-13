@@ -74,7 +74,8 @@ public class LayerGame extends Layer
 	}
 	public void DrawPause(Graphics g)
 	{
-		if(this.gameDto.isPause())
+		//当游戏尚未开始，且游戏暂停时，显示暂停文字
+		if(this.gameDto.isGameStart() && this.gameDto.isPause())
 		{
 			this.DrawImageAtCenter(g, PAUSE_IMG);
 		}

@@ -60,13 +60,19 @@ public class PlayerController extends KeyAdapter
 			{
 				try 
 				{	
-					sleep(500);
+					//System.out.println(gameDto.isPause());
+					//TODO 结束游戏
+					if(gameDto.isGameStart() && gameDto.isGameover())
+					{
+						break;
+					}	
+					sleep(1000);
 					if(gameDto.isPause())
 					{
 						gameController.rePaint();
 						continue;
 					}
-					gameController.KeyDown();
+					gameController.KeyDown();		
 				} 
 				catch (InterruptedException e) 
 				{

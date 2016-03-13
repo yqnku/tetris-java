@@ -31,6 +31,13 @@ public class GameAct
 	{
 		return actPoints;
 	}
+	/**
+	 * 移动的方向
+	 * @param x_Move
+	 * @param y_Move
+	 * @param gameMap
+	 * @return boolean false表示不能移动
+	 */
 	public boolean Move(int x_Move,int y_Move,boolean[][] gameMap)
 	{
 		for (int i = 0; i < actPoints.length; i++) 

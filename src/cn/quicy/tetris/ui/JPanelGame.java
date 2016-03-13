@@ -88,16 +88,25 @@ public class JPanelGame extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				//按下开始按钮的时候
+				//如果此时不是暂停状态，那么按下按钮将暂停。
 				if (!gameDto.isPause())
 				{
 					jButtonStart.setIcon(new ImageIcon("graphics/string/start.png"));
-					gameDto.ChangeStatus();
+					gameDto.changePauseStatus();
 				}
+				//如果此时是暂停状态，那么按下按钮将开始
 				else 
 				{
+					//如果游戏未开始，将游戏开始
+					if(!gameDto.isGameStart())
+					{
+						gameDto.setGameStart(true);
+						playerControl.Start(gameDto);
+						gameDto.changeGameOverStatue();
+					}
 					jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
-					playerControl.Start(gameDto);
-					gameDto.ChangeStatus();
+					gameDto.changePauseStatus();
 				}
 			}
 		});

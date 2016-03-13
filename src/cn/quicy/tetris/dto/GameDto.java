@@ -52,6 +52,14 @@ public class GameDto
 	 */
 	private boolean pause;
 	/**
+	 * Distinguish the game over state
+	 */
+	private boolean gameOver;
+	/**
+	 * Distinguish the game start state
+	 */
+	private boolean gameStart;
+	/**
 	 * Constructor
 	 */
 	public GameDto() 
@@ -67,8 +75,9 @@ public class GameDto
 		this.nowScores = 0;
 		this.nowRemoveLine = 0;
 		this.next = new Random().nextInt(TYPE_COUNT);
-		//TODO isStart
 		this.pause = true;
+		this.gameOver = true;
+		this.gameStart = false;
 		this.gameMap = new boolean[10][18];
 		this.globalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
 		this.personalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
@@ -185,7 +194,7 @@ public class GameDto
 	/**
 	 * Change suspended status
 	 */
-	public void ChangeStatus() 
+	public void changePauseStatus() 
 	{
 		this.pause = !this.pause;
 	}
@@ -217,9 +226,24 @@ public class GameDto
 	 * Set personal Leader Boards Recode
 	 * @param personalLeaderBoardsRecode
 	 */
-	public void setPersonalLeaderBoardsRecode(
-			List<LeaderBoardsDto> personalLeaderBoardsRecode) 
+	public void setPersonalLeaderBoardsRecode(List<LeaderBoardsDto> personalLeaderBoardsRecode) 
 	{
 		this.personalLeaderBoardsRecode = personalLeaderBoardsRecode;
+	}
+	public boolean isGameover()
+	{
+		return gameOver;
+	}
+	public void changeGameOverStatue() 
+	{
+		this.gameOver = !this.gameOver;
+	}
+	public boolean isGameStart() 
+	{
+		return gameStart;
+	}
+	public void setGameStart(boolean gameStart) 
+	{
+		this.gameStart = gameStart;
 	}
 }
