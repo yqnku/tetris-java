@@ -23,5 +23,12 @@ public class Start
 		jPanelGame.getGameController(playerController);
 		//Create game frame(Install game panel)
 		new JFrameGame(jPanelGame);
+		//TODO ！！！！要做的事情！！！！
+		//暂停按钮--要搞定 
+		//结束游戏时的提示  
+		//设置按钮，主题啥的   
+		//硬编码问题，写配置文件   
+		// 数据库
+		//加个计时功能
 	}
 }

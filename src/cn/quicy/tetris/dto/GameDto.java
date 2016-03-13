@@ -1,4 +1,5 @@
 package cn.quicy.tetris.dto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import cn.quicy.tetris.entity.GameAct;
@@ -9,17 +10,17 @@ import cn.quicy.tetris.entity.GameAct;
 public class GameDto 
 {
 	/**
-	 * DateBase recode
+	 * Global Leader Boards Recode
 	 */
-	private List<PlayerDto> dbRecode;
+	private List<LeaderBoardsDto> globalLeaderBoardsRecode;
 	/**
-	 * Local disk recode
+	 * Personal Leader Boards Recode
 	 */
-	private List<PlayerDto> diskRecode;
+	private List<LeaderBoardsDto> personalLeaderBoardsRecode;
 	/**
 	 * Game map
-	 * "true" representative there is a diamonds
-	 * "false" representative there is not a diamonds
+	 * "true" representative there is a diamond
+	 * "false" representative there is not a diamond
 	 */
 	private boolean[][] gameMap;
 	//TODO annotation
@@ -66,40 +67,17 @@ public class GameDto
 		this.nowScores = 0;
 		this.nowRemoveLine = 0;
 		this.next = new Random().nextInt(TYPE_COUNT);
+		//TODO 这个地方到底应该是true还是false呢
 		this.pause = false;
 		this.gameMap = new boolean[10][18];
-	}
-	/**
-	 * get database recode
-	 * @return List
-	 */
-	public List<PlayerDto> getDbRecode() 
-	{
-		return dbRecode;
-	}
-	/**
-	 * set database recode
-	 * @param dbRecode
-	 */
-	public void setDbRecode(List<PlayerDto> dbRecode) 
-	{
-		this.dbRecode = dbRecode;
-	}
-	/**
-	 * get local disk recode
-	 * @return
-	 */
-	public List<PlayerDto> getDiskRecode() 
-	{
-		return diskRecode;
-	}
-	/**
-	 * set local disk recode
-	 * @param diskRecode
-	 */
-	public void setDiskRecode(List<PlayerDto> diskRecode) 
-	{
-		this.diskRecode = diskRecode;
+		//TODO 数据操作？ LeaderBoardsDTO
+		this.globalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
+		this.personalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
+		for (int i = 0 ; i < 4 ; i++)
+		{
+			globalLeaderBoardsRecode.add(new LeaderBoardsDto());
+			personalLeaderBoardsRecode.add(new LeaderBoardsDto());
+		}
 	}
 	/**
 	 * get game map
@@ -211,5 +189,38 @@ public class GameDto
 	public void ChangeStatus() 
 	{
 		this.pause = !this.pause;
+	}
+	/**
+	 * Get Global Leader Boards Recode
+	 * @return
+	 */
+	public List<LeaderBoardsDto> getGlobalLeaderBoardsRecode() 
+	{
+		return globalLeaderBoardsRecode;
+	}
+	/**
+	 * Set Global Leader Boards Recode
+	 * @param globalLeaderBoardsRecode
+	 */
+	public void setGlobalLeaderBoardsRecode(List<LeaderBoardsDto> globalLeaderBoardsRecode) 
+	{
+		this.globalLeaderBoardsRecode = globalLeaderBoardsRecode;
+	}
+	/**
+	 * Get Personal Leader Boards Recode
+	 * @return
+	 */
+	public List<LeaderBoardsDto> getPersonalLeaderBoardsRecode() 
+	{
+		return personalLeaderBoardsRecode;
+	}
+	/**
+	 * Set personal Leader Boards Recode
+	 * @param personalLeaderBoardsRecode
+	 */
+	public void setPersonalLeaderBoardsRecode(
+			List<LeaderBoardsDto> personalLeaderBoardsRecode) 
+	{
+		this.personalLeaderBoardsRecode = personalLeaderBoardsRecode;
 	}
 }

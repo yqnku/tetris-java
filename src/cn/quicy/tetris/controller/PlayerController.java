@@ -1,29 +1,46 @@
 package cn.quicy.tetris.controller;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+/**
+ * Play Controller
+ * @author quicy
+ */
 public class PlayerController extends KeyAdapter
 {
-	private GameController gameControl;
-	public PlayerController(GameController gameControl)
+	/**
+	 * Connect game controller
+	 */
+	private GameController gameController;
+	/**
+	 * Constructor
+	 * @param gameController
+	 */
+	public PlayerController(GameController gameController)
 	{
-		this.gameControl = gameControl;
+		this.gameController = gameController;
 	}
+	/**
+	 * Key released
+	 */
 	@Override
 	public void keyReleased(KeyEvent key) 
 	{
 		switch (key.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			this.gameControl.KeyUp();break;
+			this.gameController.KeyUp();break;
 		case KeyEvent.VK_DOWN:
-			this.gameControl.KeyDown();break;
+			this.gameController.KeyDown();break;
 		case KeyEvent.VK_LEFT:
-			this.gameControl.KeyLeft();break;
+			this.gameController.KeyLeft();break;
 		case KeyEvent.VK_RIGHT:
-			this.gameControl.KeyRight();break;
+			this.gameController.KeyRight();break;
 		default:
 			break;
 		}
 	}
+	/**
+	 * Start and Pause function
+	 */
 	public void Start()
 	{
 		//TODO 很多要改的地方
@@ -36,7 +53,7 @@ public class PlayerController extends KeyAdapter
 				{
 					try 
 					{
-						gameControl.KeyDown();
+						gameController.KeyDown();
 						sleep(1000);
 					} 
 					catch (InterruptedException e) 

@@ -1,13 +1,17 @@
 package cn.quicy.tetris.ui;
-
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
+/**
+ * The next diamond
+ * @author quicy
+ */
 public class LayerNext extends Layer 
 {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Next diamonds
+	 */
 	private static final Image[] NEXT_IMGS;
 	static
 	{
@@ -17,21 +21,23 @@ public class LayerNext extends Layer
 			NEXT_IMGS[i] = new ImageIcon("graphics/game/"+Integer.toString(i)+".png").getImage();
 		}
 	}
+	/**
+	 * Constructor
+	 * @param m_x
+	 * @param m_y
+	 * @param m_w
+	 * @param m_h
+	 */
 	public LayerNext(int m_x,int m_y,int m_w,int m_h)
 	{
 		super(m_x, m_y, m_w, m_h);
 	}
+	/**
+	 * Paint inside Component
+	 */
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
-		DrawImageAtCenter(g, NEXT_IMGS[this.gameDto.getNext()]);
-	}
-	private void DrawImageAtCenter(Graphics g,Image img)
-	{
-		int imgW = img.getWidth(null);
-		int imgH = img.getHeight(null);
-		int m_x = this.x + ((this.w-imgW)>>1);
-		int m_y = this.y + ((this.h-imgH)>>1);
-		g.drawImage(img, m_x, m_y, null);
+		this.DrawImageAtCenter(g, NEXT_IMGS[this.gameDto.getNext()]);
 	}
 }

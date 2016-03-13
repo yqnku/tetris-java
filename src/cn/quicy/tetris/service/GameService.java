@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.util.Random;
 import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.entity.GameAct;
+//TODO 注释
 public class GameService 
 {
 	private GameDto gameDto;

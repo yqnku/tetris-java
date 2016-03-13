@@ -4,20 +4,52 @@ import java.awt.Image;
 import java.awt.Point;
 
 import javax.swing.ImageIcon;
+/**
+ * Layer Game
+ * @author quicy
+ */
 public class LayerGame extends Layer 
 {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * the diamond
+	 */
 	private static Image ACT_IMG = new ImageIcon("graphics/game/rect.png").getImage(); 
+	/**
+	 * Pause---String
+	 */
 	private static Image PAUSE_IMG = new ImageIcon("graphics/string/pause.png").getImage(); 
+	/**
+	 * Constructor
+	 * @param m_x
+	 * @param m_y
+	 * @param m_w
+	 * @param m_h
+	 */
 	public LayerGame(int m_x,int m_y,int m_w,int m_h)
 	{
 		super(m_x, m_y, m_w, m_h);
 	}
+	/**
+	 * Paint inside Component
+	 */
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
 		this.DrawAct(g);
 		this.DrawPause(g);
+	}
+	//TODO 补注释
+	/**
+	 * 
+	 * @param m_x
+	 * @param m_y
+	 * @param imgIndex
+	 * @param g
+	 */
+	private void DrawByPoints(int m_x,int m_y,int imgIndex,Graphics g)
+	{
+		g.drawImage(ACT_IMG,  this.x + this.getSIZE() + (m_x<<5) , this.y + this.getSIZE() + (m_y<<5), this.x + this.getSIZE() + (m_x<<5) + 32, this.y + this.getSIZE() + (m_y<<5) + 32, imgIndex<<5, 0, (imgIndex<<5)+32, 32, null);
 	}
 	public void DrawAct(Graphics g)
 	{
@@ -40,20 +72,11 @@ public class LayerGame extends Layer
 			}
 		}
 	}
-	public void DrawByPoints(int m_x,int m_y,int imgIndex,Graphics g)
-	{
-		g.drawImage(ACT_IMG,  this.x + this.getSIZE() + (m_x<<5) , this.y + this.getSIZE() + (m_y<<5), this.x + this.getSIZE() + (m_x<<5) + 32, this.y + this.getSIZE() + (m_y<<5) + 32, imgIndex<<5, 0, (imgIndex<<5)+32, 32, null);
-	}
 	public void DrawPause(Graphics g)
 	{
-		//TODO 绘制图片居中应该写在基类里
 		if(this.gameDto.isPause())
 		{
-			int imgW = PAUSE_IMG.getWidth(null);
-			int imgH = PAUSE_IMG.getHeight(null);
-			int m_x = this.x + ((this.w-imgW)>>1);
-			int m_y = this.y + ((this.h-imgH)>>1);
-			g.drawImage(PAUSE_IMG, m_x, m_y, null);
+			this.DrawImageAtCenter(g, PAUSE_IMG);
 		}
 	}
 	

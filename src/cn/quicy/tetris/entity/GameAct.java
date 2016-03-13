@@ -2,6 +2,11 @@ package cn.quicy.tetris.entity;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Game Act---entity
+ * @author quicy
+ */
+//TODO 注释
 public class GameAct
 {
 	private Point[] actPoints;

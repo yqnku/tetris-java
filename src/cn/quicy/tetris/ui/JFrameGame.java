@@ -10,11 +10,10 @@ import cn.quicy.tetris.ui.JPanelGame;
 public class JFrameGame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	//TODO config
 	/**
 	 * Constant----window.width
 	 */
-	private static final int WINDOW_WIDTH = 1050;
+	private static final int WINDOW_WIDTH = 1100;
 	/**
 	 * Constant----window.height
 	 */
