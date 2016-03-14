@@ -19,6 +19,7 @@ public class LayerGame extends Layer
 	 * Pause---String
 	 */
 	private static Image PAUSE_IMG = new ImageIcon("graphics/string/pause.png").getImage(); 
+	private static Image GAMEOVER_IMG = new ImageIcon("graphics/string/gameover.png").getImage(); 
 	/**
 	 * Constructor
 	 * @param m_x
@@ -39,7 +40,6 @@ public class LayerGame extends Layer
 		this.DrawAct(g);
 		this.DrawPause(g);
 	}
-	//TODO 补注释
 	/**
 	 * 
 	 * @param m_x
@@ -78,6 +78,11 @@ public class LayerGame extends Layer
 		if(this.gameDto.isGameStart() && this.gameDto.isPause())
 		{
 			this.DrawImageAtCenter(g, PAUSE_IMG);
+		}
+		//游戏已经开始以及在结束时显示game over
+		if(this.gameDto.isGameStart() && this.gameDto.isGameover())
+		{
+			this.DrawImageAtCenter(g, GAMEOVER_IMG);
 		}
 	}
 	

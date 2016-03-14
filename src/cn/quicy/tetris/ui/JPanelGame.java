@@ -90,8 +90,12 @@ public class JPanelGame extends JPanel
 			{
 				//按下开始按钮的时候
 				//如果此时不是暂停状态，那么按下按钮将暂停。
-				if (!gameDto.isPause())
+				if (!gameDto.isPause() && !gameDto.isGameStart())
 				{
+					//游戏中
+					//pause = false;gameOver =false;gameStart = true;
+					//游戏暂停
+					//pause = true;gameOver =false;gameStart = true;
 					jButtonStart.setIcon(new ImageIcon("graphics/string/start.png"));
 					gameDto.changePauseStatus();
 				}
@@ -99,18 +103,36 @@ public class JPanelGame extends JPanel
 				else 
 				{
 					//如果游戏未开始，将游戏开始
-					if(!gameDto.isGameStart())
+					if(!gameDto.isGameStart() && gameDto.isGameover())
 					{
-						gameDto.setGameStart(true);
+						//起始状态
+						//pause = true;gameOver = true;gameStart = false;
+						//游戏中
+						//pause = false;gameOver =false;gameStart = true;
 						playerControl.Start(gameDto);
+						gameDto.setGameStart(true);
 						gameDto.changeGameOverStatue();
 					}
-					jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
-					gameDto.changePauseStatus();
+					//游戏已开始，游戏over
+					if(gameDto.isGameStart() && gameDto.isGameover())
+					{
+						gameDto.changeGameOverStatue();
+						playerControl.Start(gameDto);
+						jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
+					}
+					else 
+					{
+						jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
+						gameDto.changePauseStatus();
+					}
 				}
 			}
 		});
 		this.add(jButtonStart);
+	}
+	public JButton getjButtonStart() 
+	{
+		return jButtonStart;
 	}
 	/**
 	 * Set Layers

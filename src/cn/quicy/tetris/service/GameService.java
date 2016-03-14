@@ -3,7 +3,6 @@ import java.awt.Point;
 import java.util.Random;
 import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.entity.GameAct;
-//TODO 注释
 public class GameService 
 {
 	private GameDto gameDto;
@@ -17,15 +16,19 @@ public class GameService
 	}
 	public void KeyUp() 
 	{
-		if(this.gameDto.isPause())
+		if(this.gameDto.isGameover() || this.gameDto.isPause())
 			return;
 		this.gameDto.getGameAct().Rotate(this.gameDto.getGameMap());
 	}
 	public void KeyDown() 
 	{
-		if(this.gameDto.isPause())
-			return;
+		//如果游戏结束，点击开始时，清空map
+		if(this.gameDto.isGameover() || this.gameDto.isPause())
+		{
+			return;	
+		}
 		//如果不能移动的话，则直接返回
+		//TODO 多写几个方法
 		if(this.gameDto.getGameAct().Move(0, 1,this.gameDto.getGameMap()))
 		{
 			return;
@@ -39,6 +42,7 @@ public class GameService
 				continue;
 			}
 			//TODO Game Over
+			this.gameDto.changeGameOverStatue();
 			System.out.println("game over");
 			return;
 		}
@@ -55,13 +59,13 @@ public class GameService
 	}
 	public void KeyLeft() 
 	{
-		if(this.gameDto.isPause())
+		if(this.gameDto.isGameover() || this.gameDto.isPause())
 			return;
 		this.gameDto.getGameAct().Move(-1, 0,this.gameDto.getGameMap());
 	}
 	public void KeyRight() 
 	{
-		if(this.gameDto.isPause())
+		if(this.gameDto.isGameover() || this.gameDto.isPause())
 			return;
 		this.gameDto.getGameAct().Move(1, 0,this.gameDto.getGameMap());
 	}
@@ -110,5 +114,9 @@ public class GameService
 	{
 		int[] scores  = {0,10,12,18,30};
 		return scores[removeLine];
+	}
+	public void reStart()
+	{
+		this.gameDto.NewGame();
 	}
 }

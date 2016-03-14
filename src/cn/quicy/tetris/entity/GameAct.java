@@ -6,7 +6,6 @@ import java.util.List;
  * Game Act---entity
  * @author quicy
  */
-//TODO 注释
 public class GameAct
 {
 	private Point[] actPoints;

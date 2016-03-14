@@ -31,6 +31,6 @@ public class LayerDisk extends Layer
 	{
 		this.CreateWindow(g);
 		g.drawImage(DISK_IMG, this.x+16, this.y+16, null);
-		//this.drawShadowAndNum(g,this.gameDto.getPersonalLeaderBoardsRecode());
+		this.drawShadowAndNum(g,this.gameDto.getPersonalLeaderBoardsRecode());
 	}
 }

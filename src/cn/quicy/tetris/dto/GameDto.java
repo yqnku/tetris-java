@@ -23,7 +23,6 @@ public class GameDto
 	 * "false" representative there is not a diamond
 	 */
 	private boolean[][] gameMap;
-	//TODO 注释
 	private GameAct gameAct;
 	/**
 	 * Type of diamonds counts
@@ -47,6 +46,17 @@ public class GameDto
 	 * Count of remove lines
 	 */
 	private int nowRemoveLine;
+	//TODO 这部分的逻辑得再理一下
+	//起始状态
+	//pause = true;gameOver = true;gameStart = false;
+	//游戏中
+	//pause = false;gameOver =false;gameStart = true;
+	//游戏暂停
+	//pause = true;gameOver =false;gameStart = true;
+	//游戏结束
+	//pause = false;gameOver = true;gameStart = true;
+	//Start/Pause按钮
+	//restart----暂时决定不用restart按钮了
 	/**
 	 * Distinguish the suspended state
 	 */
@@ -86,6 +96,24 @@ public class GameDto
 			globalLeaderBoardsRecode.add(new LeaderBoardsDto());
 			personalLeaderBoardsRecode.add(new LeaderBoardsDto());
 		}
+	}
+	public void NewGame()
+	{
+		this.nowScores = 0;
+		this.nowRemoveLine = 0;
+		//this.pause = true;
+		//this.gameOver = false;
+		//this.gameStart = true;
+		for (int x = 0; x < 10; x++) 
+		{
+			for (int y = 0; y < 18; y++) 
+			{
+				this.gameMap[x][y] = false;
+			}
+		}
+		System.out.println(this.pause);//false
+		System.out.println(this.gameOver);//false
+		System.out.println(this.gameStart);//true
 	}
 	/**
 	 * get game map

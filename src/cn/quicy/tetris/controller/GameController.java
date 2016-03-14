@@ -1,4 +1,6 @@
 package cn.quicy.tetris.controller;
+import javax.swing.ImageIcon;
+
 import cn.quicy.tetris.service.GameService;
 import cn.quicy.tetris.ui.JPanelGame;
 /**
@@ -11,6 +13,10 @@ public class GameController
 	 * Connect game panel
 	 */
 	private JPanelGame jPanelGame;
+	public GameService getGameService() 
+	{
+		return gameService;
+	}
 	/**
 	 * Connect game service
 	 */
@@ -60,5 +66,10 @@ public class GameController
 	public void rePaint()
 	{
 		this.jPanelGame.repaint();
+	}
+	public void changeStartButtonIcon()
+	{
+		//TODO Restart
+		this.jPanelGame.getjButtonStart().setIcon(new ImageIcon("graphics/string/start.png"));
 	}
 }

@@ -46,24 +46,28 @@ public class PlayerController extends KeyAdapter
 	 */
 	public void Start(GameDto gameDto)
 	{
-		//TODO 很多要改的地方
 		this.gameDto = gameDto;
+		//TODO 要判断游戏是刚开始，还是游戏结束了以后再开始
+		if(this.gameDto.isGameStart())
+		{
+			this.gameController.getGameService().reStart();
+		}
 		Thread thread = new MainThread();
 		thread.start();
 	}
 	private class MainThread extends Thread
 	{
 		@Override
-		public void run() 
+		public void run()
 		{
 			while (true)
 			{
 				try 
-				{	
-					//System.out.println(gameDto.isPause());
+				{
 					//TODO 结束游戏
 					if(gameDto.isGameStart() && gameDto.isGameover())
 					{
+						gameController.changeStartButtonIcon();
 						break;
 					}	
 					sleep(1000);
