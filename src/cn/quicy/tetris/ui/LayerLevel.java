@@ -45,6 +45,13 @@ public class LayerLevel extends Layer {
 	 */
 	public void DrawLevel(int level,Graphics g)
 	{
-		g.drawImage(LEVEL_NUM_IMG, this.x+34,this.y+58,this.x+60,this.y+94,26*level,0,26*level+26, 36, null);
+		if(level == 1)
+		{
+			g.drawImage(LEVEL_NUM_IMG, this.x+38,this.y+58,this.x+64,this.y+94,26*level,0,26*level+26, 36, null);
+		}
+		else 
+		{
+			g.drawImage(LEVEL_NUM_IMG, this.x+48,this.y+58,this.x+74,this.y+94,26*level,0,26*level+26, 36, null);
+		}
 	}
 }

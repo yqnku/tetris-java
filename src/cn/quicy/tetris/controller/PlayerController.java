@@ -47,11 +47,7 @@ public class PlayerController extends KeyAdapter
 	public void Start(GameDto gameDto)
 	{
 		this.gameDto = gameDto;
-		//TODO 要判断游戏是刚开始，还是游戏结束了以后再开始
-		if(this.gameDto.isGameStart())
-		{
-			this.gameController.getGameService().reStart();
-		}
+		this.gameController.getGameService().reStart();
 		Thread thread = new MainThread();
 		thread.start();
 	}
@@ -64,19 +60,17 @@ public class PlayerController extends KeyAdapter
 			{
 				try 
 				{
-					//TODO 结束游戏
 					if(gameDto.isGameStart() && gameDto.isGameover())
 					{
 						gameController.changeStartButtonIcon();
 						break;
 					}	
-					sleep(1000);
+					sleep(100*(10-gameDto.getLevel()));
 					if(gameDto.isPause())
 					{
-						gameController.rePaint();
 						continue;
 					}
-					gameController.KeyDown();		
+					gameController.KeyDown();
 				} 
 				catch (InterruptedException e) 
 				{
@@ -84,5 +78,9 @@ public class PlayerController extends KeyAdapter
 				}
 			}
 		}
+	}
+	public void callRePaint() 
+	{
+		gameController.rePaint();
 	}
 }

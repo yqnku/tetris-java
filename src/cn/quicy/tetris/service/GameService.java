@@ -28,34 +28,42 @@ public class GameService
 			return;	
 		}
 		//如果不能移动的话，则直接返回
-		//TODO 多写几个方法
 		if(this.gameDto.getGameAct().Move(0, 1,this.gameDto.getGameMap()))
 		{
 			return;
 		}
+		//向下
 		boolean[][] map = this.gameDto.getGameMap();
 		Point[] points = this.gameDto.getGameAct().getActPoints();
-		for (int i = 0; i < points.length; i++) 
+		//如果此时不能再移动，则game over，并返回
+		if(this.IsGameOver(map, points))
 		{
-			if(!map[points[i].x][points[i].y])
-			{
-				continue;
-			}
-			//TODO Game Over
-			this.gameDto.changeGameOverStatue();
-			System.out.println("game over");
 			return;
 		}
 		for (int i = 0; i < points.length; i++) 
 		{
 			map[points[i].x][points[i].y] = true;
-		}
+		}	
 		int removeLine = this.RemoveLines(map);
 		int addScore = this.AddScore(removeLine);
 		this.gameDto.setNowRemoveLine(this.gameDto.getNowRemoveLine()+removeLine);
 		this.gameDto.setNowScores(this.gameDto.getNowScores()+addScore);
 		this.gameDto.getGameAct().Init(this.gameDto.getNext());
-		this.gameDto.setNext(new Random().nextInt(7));
+		this.gameDto.setNext(new Random().nextInt(TYPE_COUNT));
+		updateLevel();
+	}
+	private void updateLevel() 
+	{
+		int[] levelScore = {-1,200,400,600,800,1000,1500,2000,2500,3000};
+		int score = this.gameDto.getNowScores();
+		for (int i = 0; i < levelScore.length; i++) 
+		{
+			if (score < levelScore[i]) 
+			{
+				this.gameDto.setLevel(i);
+				return;
+			}
+		}
 	}
 	public void KeyLeft() 
 	{
@@ -68,6 +76,19 @@ public class GameService
 		if(this.gameDto.isGameover() || this.gameDto.isPause())
 			return;
 		this.gameDto.getGameAct().Move(1, 0,this.gameDto.getGameMap());
+	}
+	private boolean IsGameOver(boolean[][] map,Point[] points)
+	{
+		for (int i = 0; i < points.length; i++) 
+		{
+			if(!map[points[i].x][points[i].y])
+			{
+				continue;
+			}
+			this.gameDto.changeGameOverStatue();
+			return true;
+		}
+		return false;
 	}
 	private boolean CanRemoveLine(int y,boolean[][] map) 
 	{
@@ -112,7 +133,8 @@ public class GameService
 	}
 	private int AddScore(int removeLine) 
 	{
-		int[] scores  = {0,10,12,18,30};
+		int level = this.gameDto.getLevel();
+		int[] scores  = {0,6+4*level,7+5*level,12+6*level,23+7*level};
 		return scores[removeLine];
 	}
 	public void reStart()

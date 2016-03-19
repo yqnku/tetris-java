@@ -3,8 +3,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.List;
-import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import cn.quicy.tetris.dto.GameDto;
@@ -13,6 +11,7 @@ import cn.quicy.tetris.dto.LeaderBoardsDto;
  * Layers abstract
  * @author quicy
  */
+//工厂方法模式
 public abstract class Layer extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -139,9 +138,6 @@ public abstract class Layer extends JPanel
 		for (int i = 0 ; i < 4 ; i++)
 		{
 			g.drawImage(SHADOW_IMG, this.x+7, this.y+60+50*i, this.x+293, this.y+100+50*i, 0, 0, 300, 40, null);
-			//TODO 很重要的地方，应该是需要在DTO中新建一个类，用来放排行榜，嗯，具体先放着,这个字体一定得改的
-			//速度很慢大概是因为这个字体的原因
-			//g.setFont(new Font("Tahoma",Font.PLAIN, 40));
 			g.setFont(new Font(Font.SANS_SERIF,Font.PLAIN, 40));
 			g.drawString(recode.get(i).getName(), 50, this.y+90+50*i);
 			this.DrawNum(140, 62+50*i,recode.get(i).getScore() , g);

@@ -1,7 +1,13 @@
 package cn.quicy.tetris.ui;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,17 +45,17 @@ public class JPanelGame extends JPanel
 	 */
 	public JPanelGame(GameDto gameDto)
 	{
+		//set the game data transfer object
 		this.gameDto = gameDto;
 		//So that JButton. setBounds can work
 		this.setLayout(null);
 		//Initialize components
-		//TODO 按钮的美观
-		InitComponent();
+		addConfigButton();
 	}
 	/**
 	 * Set configure button
 	 */
-	private void InitComponent()
+	private void addConfigButton()
 	{
 		this.jButtonConfig = new JButton(new ImageIcon("graphics/string/options.png"));
 		this.jButtonConfig.setBounds(920, 50, 110, 48);
@@ -58,7 +64,6 @@ public class JPanelGame extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				// TODO options
 				System.out.println("config");
 			}
 		});
@@ -75,71 +80,94 @@ public class JPanelGame extends JPanel
 	}
 	/**
 	 * Set start/pause button
-	 * @param playerControl
+	 * @param playerController
 	 */
-	private void Start(final PlayerController playerControl)
+	private void Start(final PlayerController playerController)
 	{
 		this.jButtonStart = new JButton(new ImageIcon("graphics/string/start.png"));
 		this.jButtonStart.setBounds(790, 50,100, 48);
-		//TODO key event does not work
-		this.jButtonStart.setMnemonic(KeyEvent.VK_ENTER);
+		//响应Enter键
+		InputMap inputMap = jButtonStart.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = jButtonStart.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),"enter");
+        actionMap.put("enter", new AbstractAction(){
+        	private static final long serialVersionUID = 1L;
+					public void actionPerformed(ActionEvent event) {
+		                startPauseClick(playerController);
+		            }
+		});
 		this.jButtonStart.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//按下开始按钮的时候
-				//如果此时不是暂停状态，那么按下按钮将暂停。
-				if (!gameDto.isPause() && !gameDto.isGameStart())
-				{
-					//游戏中
-					//pause = false;gameOver =false;gameStart = true;
-					//游戏暂停
-					//pause = true;gameOver =false;gameStart = true;
-					jButtonStart.setIcon(new ImageIcon("graphics/string/start.png"));
-					gameDto.changePauseStatus();
-				}
-				//如果此时是暂停状态，那么按下按钮将开始
-				else 
-				{
-					//如果游戏未开始，将游戏开始
-					if(!gameDto.isGameStart() && gameDto.isGameover())
-					{
-						//起始状态
-						//pause = true;gameOver = true;gameStart = false;
-						//游戏中
-						//pause = false;gameOver =false;gameStart = true;
-						playerControl.Start(gameDto);
-						gameDto.setGameStart(true);
-						gameDto.changeGameOverStatue();
-					}
-					//游戏已开始，游戏over
-					if(gameDto.isGameStart() && gameDto.isGameover())
-					{
-						gameDto.changeGameOverStatue();
-						playerControl.Start(gameDto);
-						jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
-					}
-					else 
-					{
-						jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
-						gameDto.changePauseStatus();
-					}
-				}
+				startPauseClick(playerController);
 			}
 		});
 		this.add(jButtonStart);
 	}
-	public JButton getjButtonStart() 
+	private void startPauseClick(final PlayerController playerController)
 	{
-		return jButtonStart;
+		//Statue:isGameStart,isGamePause,isGameOver
+		//Open the frame:start = false;pause = true;over = true;
+		//Game start:start = true;pause=false;over=false;
+		//Game pause:start=true;pause=true;over=false;
+		//Game over:start=true;pause=true;over=true;
+		boolean[] nowStatue = {this.gameDto.isGameStart(),this.gameDto.isPause(),this.gameDto.isGameover()};
+		boolean[] openFrame = {false,true,true};
+		boolean[] gameStart = {true,false,false};
+		boolean[] gamePause = {true,true,false};
+		//boolean[] gameOver = {true,true,true};
+		//TODO 是不是有个数组映射的方法来着？
+		if(isEqualBool(nowStatue, openFrame))
+		{
+			this.gameDto.changePauseStatus();
+			this.gameDto.setGameStart(true);
+			this.gameDto.changeGameOverStatue();
+			playerController.Start(gameDto);
+			this.jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
+		}
+		else if(isEqualBool(nowStatue, gameStart))
+		{
+			this.gameDto.changePauseStatus();
+			this.jButtonStart.setIcon(new ImageIcon("graphics/string/start.png"));		
+			playerController.callRePaint();
+		}
+		else if(isEqualBool(nowStatue, gamePause))
+		{
+			this.gameDto.changePauseStatus();
+			this.jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
+		}
+		else 
+		{
+			this.gameDto.changeGameOverStatue();
+			playerController.Start(gameDto);
+			this.jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
+		}
+	}
+	
+	private boolean isEqualBool(boolean[] bool1,boolean[] bool2)
+	{
+		for (int i = 0; i < bool1.length; i++) 
+		{
+			if (bool1[i] != bool2[i]) 
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public JButton getjButtonStart()
+	{
+		return this.jButtonStart;
 	}
 	/**
 	 * Set Layers
 	 */
 	private void setLayers()
 	{
-		layers = new Layer[]
+		this.layers = new Layer[]
 				{
 					new LayerBG(0, 0, 1100, 700),
 					new LayerData(32,32,300,275),

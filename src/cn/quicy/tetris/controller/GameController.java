@@ -69,7 +69,6 @@ public class GameController
 	}
 	public void changeStartButtonIcon()
 	{
-		//TODO Restart
 		this.jPanelGame.getjButtonStart().setIcon(new ImageIcon("graphics/string/start.png"));
 	}
 }
