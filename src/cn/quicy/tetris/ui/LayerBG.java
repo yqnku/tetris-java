@@ -27,6 +27,6 @@ public class LayerBG extends Layer
 	@Override
 	public void Paint(Graphics g)
 	{
-		g.drawImage(BG_IMG, this.x, this.y, this.w,this.h,0,0,800,450,null);
+		g.drawImage(BG_IMG, this.x, this.y, this.w,this.h,0,0,BG_IMG.getWidth(null),BG_IMG.getHeight(null),null);
 	}
 }

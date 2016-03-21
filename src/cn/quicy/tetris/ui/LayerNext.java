@@ -15,6 +15,7 @@ public class LayerNext extends Layer
 	private static final Image[] NEXT_IMGS;
 	static
 	{
+		//TODO config
 		NEXT_IMGS = new Image[7];
 		for(int i = 0 ; i < 7 ; i++)
 		{

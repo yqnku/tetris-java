@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
+<game title="Tetris-quicy">
     <frame width="1100" height="700" size="7">
-        <layer className="cn.quicy.tetris.ui.LayerBG" x="32" y="32" w="300" h="275"/>
-        <layer className="cn.quicy.tetris.ui.LayerData" x="32" y="347" w="300" h="275"/>
-        <layer className="cn.quicy.tetris.ui.LayerDisk" x="370" y="32" w="333" h="590"/>
-        <layer className="cn.quicy.tetris.ui.LayerGame" x="750" y="32" w="310" h="85"/>
+        <layer className="cn.quicy.tetris.ui.LayerBG" x="0" y="0" w="1100" h="700"/>
+        <layer className="cn.quicy.tetris.ui.LayerData" x="32" y="32" w="300" h="275"/>
+        <layer className="cn.quicy.tetris.ui.LayerDisk" x="32" y="347" w="300" h="275"/>
+        <layer className="cn.quicy.tetris.ui.LayerGame" x="370" y="32" w="333" h="590"/>
         <layer className="cn.quicy.tetris.ui.LayerButton" x="750" y="32" w="310" h="85"/>
         <layer className="cn.quicy.tetris.ui.LayerNext" x="750" y="140" w="185" h="120"/>
         <layer className="cn.quicy.tetris.ui.LayerLevel" x="935" y="140" w="125" h="120"/>
         <layer className="cn.quicy.tetris.ui.LayerScore" x="750" y="280" w="310" h="155"/>
         <layer className="cn.quicy.tetris.ui.LayerAbout" x="750" y="467" w="310" h="155"/>
+        <start/>
+        <options/>
     </frame>
     <system>
     </system>

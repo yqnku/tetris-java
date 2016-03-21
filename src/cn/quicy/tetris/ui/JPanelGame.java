@@ -12,6 +12,13 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.quicy.tetris.config.ConfigFactory;
+import cn.quicy.tetris.config.GameConfig;
+import cn.quicy.tetris.config.LayerConfig;
 import cn.quicy.tetris.controller.PlayerController;
 import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.ui.Layer;
@@ -30,7 +37,7 @@ public class JPanelGame extends JPanel
 	 * Layer
 	 * contains each component
 	 */
-	private Layer layers[] = null;
+	private List<Layer> layers = null;
 	/**
 	 * Start and pause button
 	 */
@@ -39,6 +46,7 @@ public class JPanelGame extends JPanel
 	 * Configure button
 	 */
 	private JButton jButtonConfig = null;
+	private GameConfig gameConfig = null;
 	/**
 	 * Constructor
 	 * @param gameDto
@@ -47,10 +55,13 @@ public class JPanelGame extends JPanel
 	{
 		//set the game data transfer object
 		this.gameDto = gameDto;
+		//获得游戏配置
+		this.gameConfig = ConfigFactory.getGameConfig();
 		//So that JButton. setBounds can work
 		this.setLayout(null);
 		//Initialize components
 		addConfigButton();
+		
 	}
 	/**
 	 * Set configure button
@@ -85,6 +96,7 @@ public class JPanelGame extends JPanel
 	private void Start(final PlayerController playerController)
 	{
 		this.jButtonStart = new JButton(new ImageIcon("graphics/string/start.png"));
+		//TODO config
 		this.jButtonStart.setBounds(790, 50,100, 48);
 		//响应Enter键
 		InputMap inputMap = jButtonStart.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -167,18 +179,29 @@ public class JPanelGame extends JPanel
 	 */
 	private void setLayers()
 	{
-		this.layers = new Layer[]
-				{
-					new LayerBG(0, 0, 1100, 700),
-					new LayerData(32,32,300,275),
-					new LayerDisk(32,347,300,275),
-					new LayerGame(370, 32, 333, 590),
-					new LayerButton(750, 32, 310, 85),		
-					new LayerNext(750, 140, 185, 120),
-					new LayerLevel(935, 140 , 125, 120),
-					new LayerScore(750, 280, 310, 155),
-					new LayerAbout(750, 467, 310, 155)
-				};
+		try 
+		{
+			List<LayerConfig> layerConfigs = gameConfig.getLayerConfigs();
+			//创建游戏层数组
+			layers = new ArrayList<Layer>(layerConfigs.size());
+			//循环创建所有层对象
+			for (LayerConfig layerConfig : layerConfigs) 
+			{
+				//用字符串来创建对象
+				//反射----用反射来创建对象		
+				//获得类对象
+				Class<?> clsClass = Class.forName(layerConfig.getClassName());
+				//获得构造函数
+				Constructor<?> ctrConstructor = clsClass.getConstructor(int.class,int.class,int.class,int.class);
+				//调用构造函数创建对象
+				Layer layer  = (Layer)ctrConstructor.newInstance(layerConfig.getX(),layerConfig.getY(),layerConfig.getW(),layerConfig.getH());
+				layers.add(layer);
+			}
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Paint Components

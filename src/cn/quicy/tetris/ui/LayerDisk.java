@@ -30,6 +30,7 @@ public class LayerDisk extends Layer
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
+		//TODO config
 		g.drawImage(DISK_IMG, this.x+16, this.y+16, null);
 		this.drawShadowAndNum(g,this.gameDto.getPersonalLeaderBoardsRecode());
 	}

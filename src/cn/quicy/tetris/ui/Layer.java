@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import cn.quicy.tetris.config.ConfigFactory;
 import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.dto.LeaderBoardsDto;
 /**
@@ -34,7 +36,7 @@ public abstract class Layer extends JPanel
 	/**
 	 * Border-size
 	 */
-	private final int SIZE = 7;
+	private final int SIZE = ConfigFactory.getGameConfig().getSize();
 	private final Image NUM_IMG = new ImageIcon("graphics/string/num.png").getImage();
 	private final Image SHADOW_IMG = new ImageIcon("graphics/window/shadow.png").getImage();
 	/**
@@ -120,6 +122,7 @@ public abstract class Layer extends JPanel
 	 * @param number
 	 * @param g
 	 */
+	//TODO config
 	protected void DrawNum(int p_x,int p_y,int number,Graphics g)
 	{
 		String numberString = Integer.toString(number);

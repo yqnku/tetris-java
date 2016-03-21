@@ -35,6 +35,7 @@ public class LayerLevel extends Layer {
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
+		//TODO config
 		g.drawImage(Level_IMG, this.x+26, this.y+16, null);
 		this.DrawLevel(this.gameDto.getLevel(), g);
 	}
@@ -45,6 +46,7 @@ public class LayerLevel extends Layer {
 	 */
 	public void DrawLevel(int level,Graphics g)
 	{
+		//TODO config
 		if(level == 1)
 		{
 			g.drawImage(LEVEL_NUM_IMG, this.x+38,this.y+58,this.x+64,this.y+94,26*level,0,26*level+26, 36, null);
