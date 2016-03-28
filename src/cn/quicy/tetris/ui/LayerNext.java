@@ -2,6 +2,7 @@ package cn.quicy.tetris.ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import cn.quicy.tetris.config.GameConfig;
 /**
  * The next diamond
  * @author quicy
@@ -13,11 +14,11 @@ public class LayerNext extends Layer
 	 * Next diamonds
 	 */
 	private static final Image[] NEXT_IMGS;
+	private static final int IMAGE_COUNT = GameConfig.getFrameConfig().getImageCount();
 	static
 	{
-		//TODO config
-		NEXT_IMGS = new Image[7];
-		for(int i = 0 ; i < 7 ; i++)
+		NEXT_IMGS = new Image[IMAGE_COUNT];
+		for(int i = 0 ; i < IMAGE_COUNT ; i++)
 		{
 			NEXT_IMGS[i] = new ImageIcon("graphics/game/"+Integer.toString(i)+".png").getImage();
 		}

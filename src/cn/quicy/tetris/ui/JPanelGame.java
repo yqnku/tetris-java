@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +14,6 @@ import java.awt.event.KeyEvent;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.quicy.tetris.config.ConfigFactory;
 import cn.quicy.tetris.config.GameConfig;
 import cn.quicy.tetris.config.LayerConfig;
 import cn.quicy.tetris.controller.PlayerController;
@@ -46,7 +43,6 @@ public class JPanelGame extends JPanel
 	 * Configure button
 	 */
 	private JButton jButtonConfig = null;
-	private GameConfig gameConfig = null;
 	/**
 	 * Constructor
 	 * @param gameDto
@@ -55,8 +51,6 @@ public class JPanelGame extends JPanel
 	{
 		//set the game data transfer object
 		this.gameDto = gameDto;
-		//获得游戏配置
-		this.gameConfig = ConfigFactory.getGameConfig();
 		//So that JButton. setBounds can work
 		this.setLayout(null);
 		//Initialize components
@@ -69,7 +63,7 @@ public class JPanelGame extends JPanel
 	private void addConfigButton()
 	{
 		this.jButtonConfig = new JButton(new ImageIcon("graphics/string/options.png"));
-		this.jButtonConfig.setBounds(920, 50, 110, 48);
+		this.jButtonConfig.setBounds(GameConfig.getFrameConfig().getOptionsButton().getX(), GameConfig.getFrameConfig().getOptionsButton().getY(),GameConfig.getFrameConfig().getOptionsButton().getW(),GameConfig.getFrameConfig().getOptionsButton().getH());
 		this.jButtonConfig.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -96,8 +90,7 @@ public class JPanelGame extends JPanel
 	private void Start(final PlayerController playerController)
 	{
 		this.jButtonStart = new JButton(new ImageIcon("graphics/string/start.png"));
-		//TODO config
-		this.jButtonStart.setBounds(790, 50,100, 48);
+		this.jButtonStart.setBounds(GameConfig.getFrameConfig().getStartButton().getX(), GameConfig.getFrameConfig().getStartButton().getY(),GameConfig.getFrameConfig().getStartButton().getW(), GameConfig.getFrameConfig().getStartButton().getH());
 		//响应Enter键
 		InputMap inputMap = jButtonStart.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap actionMap = jButtonStart.getActionMap();
@@ -181,7 +174,7 @@ public class JPanelGame extends JPanel
 	{
 		try 
 		{
-			List<LayerConfig> layerConfigs = gameConfig.getLayerConfigs();
+			List<LayerConfig> layerConfigs = GameConfig.getFrameConfig().getLayerConfigs();
 			//创建游戏层数组
 			layers = new ArrayList<Layer>(layerConfigs.size());
 			//循环创建所有层对象

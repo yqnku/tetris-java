@@ -35,10 +35,9 @@ public class LayerScore extends Layer
 	public void Paint(Graphics g)
 	{
 		this.CreateWindow(g);
-		//TODO config
 		g.drawImage(GRADES_IMG, this.x+8, this.y+30, null);
 		g.drawImage(RMLINNE_IMG, this.x+12, this.y+80, null);
 		this.DrawNum(130,32,this.gameDto.getNowScores(), g);
-		this.DrawNum(130, 87,this.gameDto.getNowRemoveLine(), g);
+		this.DrawNum(130,87,this.gameDto.getNowRemoveLine(), g);
 	}
 }

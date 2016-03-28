@@ -1,0 +1,7 @@
+cn.quicy.tetris.config
+cn.quicy.tetris.controller
+cn.quicy.tetris.dto
+cn.quicy.tetris.entity
+cn.quicy.tetris.main
+cn.quicy.tetris.service
+cn.quicy.tetris.ui
