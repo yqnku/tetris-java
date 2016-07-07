@@ -3,29 +3,32 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 /**
- * about----logo
+ * About
+ * Logo
  * @author quicy
+ * @version 1.0
  */
 public class LayerAbout extends Layer 
 {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * about----logo
+	 * About-Logo Image
 	 */
 	private final Image ABOUT_IMG = new ImageIcon("graphics/string/about.png").getImage();
 	/**
 	 * Constructor
-	 * @param m_x
-	 * @param m_y
-	 * @param m_w
-	 * @param m_h
+	 * @param m_x start-position-x
+	 * @param m_y start-position-y
+	 * @param m_w width
+	 * @param m_h height
 	 */
 	public LayerAbout(int m_x,int m_y,int m_w,int m_h)
 	{
 		super(m_x, m_y, m_w, m_h);
 	}
 	/**
-	 * Paint inside Component
+	 * Paint Component
+	 * @param g Graphics
 	 */
 	@Override
 	public void Paint(Graphics g)

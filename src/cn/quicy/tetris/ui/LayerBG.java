@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 /**
  * Background
  * @author quicy
+ * @version 1.0
  */
 public class LayerBG extends Layer 
 {
@@ -12,10 +13,10 @@ public class LayerBG extends Layer
 	private final Image BG_IMG = new ImageIcon("graphics/background/Sea.jpg").getImage();
 	/**
 	 * Constructor
-	 * @param m_x
-	 * @param m_y
-	 * @param m_w
-	 * @param m_h
+	 * @param m_x start-position-x
+	 * @param m_y start-position-y
+	 * @param m_w width
+	 * @param m_h height
 	 */
 	public LayerBG(int m_x,int m_y,int m_w,int m_h)
 	{
@@ -23,6 +24,7 @@ public class LayerBG extends Layer
 	}
 	/**
 	 * Paint inside Component
+	 * @param g Graphics
 	 */
 	@Override
 	public void Paint(Graphics g)

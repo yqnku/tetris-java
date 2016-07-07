@@ -82,7 +82,9 @@ public class GameDto
 		this.personalLeaderBoardsRecode = new ArrayList<LeaderBoardsDto>();
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			globalLeaderBoardsRecode.add(new LeaderBoardsDto());
+			//TODO 本地数据配置
+			//从XML文件中读取
+			//globalLeaderBoardsRecode.add(new LeaderBoardsDto());
 			personalLeaderBoardsRecode.add(new LeaderBoardsDto());
 		}
 	}

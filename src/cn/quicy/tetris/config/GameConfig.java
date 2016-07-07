@@ -18,7 +18,7 @@ public class GameConfig
 			//创建XML读取器
 			SAXReader reader = new SAXReader();
 			//读取XML文件
-			Document document = reader.read("config/config.xml");
+			Document document = reader.read("xml/config.xml");
 			//获取根结点
 			Element gameElement = document.getRootElement();
 			frameConfig = new FrameConfig(gameElement);
@@ -41,5 +41,5 @@ public class GameConfig
 		return dataConfig;
 	}
 	//构造器私有化
-	private GameConfig(){}
+	private GameConfig(){};
 }

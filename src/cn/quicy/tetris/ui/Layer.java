@@ -9,10 +9,12 @@ import cn.quicy.tetris.config.GameConfig;
 import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.dto.LeaderBoardsDto;
 /**
- * Layers abstract
+ * Layers abstract class
  * @author quicy
+ * @version 1.0
  */
 //工厂方法模式
+//抽象类
 public abstract class Layer extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +39,7 @@ public abstract class Layer extends JPanel
 	 */
 	private final int SIZE = GameConfig.getFrameConfig().getSize();
 	protected final int PADDING = GameConfig.getFrameConfig().getPadding();
+	//TODO config
 	private final Image NUM_IMG = new ImageIcon("graphics/string/num.png").getImage();
 	private final Image SHADOW_IMG = new ImageIcon("graphics/window/shadow.png").getImage();
 	/**
@@ -69,21 +72,22 @@ public abstract class Layer extends JPanel
 	}
 	/**
 	 * Constructor
-	 * @param m_x
-	 * @param m_y
-	 * @param m_w
-	 * @param m_h
+	 * @param m_x start-position-x
+	 * @param m_y start-position-y
+	 * @param m_w width
+	 * @param m_h height
 	 */
 	public Layer(int m_x,int m_y,int m_w,int m_h)
 	{
-		x = m_x;
-		y = m_y;
-		w = m_w;
-		h = m_h;
+		this.x = m_x;
+		this.y = m_y;
+		this.w = m_w;
+		this.h = m_h;
 	}
 	/**
-	 * paint create window
-	 * @param g
+	 * paint 
+	 * Create Window--border
+	 * @param g Graphics
 	 */
 	protected void CreateWindow(Graphics g)
 	{
@@ -98,14 +102,14 @@ public abstract class Layer extends JPanel
 		g.drawImage(WINDOW_IMG, x+w-SIZE, y+h-SIZE, x+w, y+h, WIN-SIZE, WIN-SIZE, WIN, WIN, null);
 	}
 	/**
-	 * paint inside of component
-	 * @param g
+	 * Paint inside of component
+	 * @param g Graphics
 	 */
 	public abstract void Paint(Graphics g);
 	/**
 	 * Draw Image at Center
-	 * @param g
-	 * @param img
+	 * @param g Graphics
+	 * @param img Image
 	 */
 	protected void DrawImageAtCenter(Graphics g,Image img)
 	{
@@ -119,11 +123,12 @@ public abstract class Layer extends JPanel
 	 * Draw number
 	 * @param p_x relative position
 	 * @param p_y relative position
-	 * @param number
-	 * @param g
+	 * @param number number
+	 * @param g Graphics
 	 */
 	protected void DrawNum(int p_x,int p_y,int number,Graphics g)
 	{
+		//TODO config
 		String numberString = Integer.toString(number);
 		for (int i =   0 ; i < 5-numberString.length() ; i++)
 		{
@@ -137,6 +142,7 @@ public abstract class Layer extends JPanel
 	}
 	protected void drawShadowAndNum(Graphics g,List<LeaderBoardsDto> recode) 
 	{
+		//TODO config
 		for (int i = 0 ; i < 4 ; i++)
 		{
 			g.drawImage(SHADOW_IMG, this.x+7, this.y+60+50*i, this.x+293, this.y+100+50*i, 0, 0, 300, 40, null);

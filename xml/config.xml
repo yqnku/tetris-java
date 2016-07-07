@@ -10,13 +10,19 @@
         <layer className="cn.quicy.tetris.ui.LayerLevel" x="935" y="140" w="125" h="120"/>
         <layer className="cn.quicy.tetris.ui.LayerScore" x="750" y="280" w="310" h="155"/>
         <layer className="cn.quicy.tetris.ui.LayerAbout" x="750" y="467" w="310" h="155"/>
-        <start x="790" y="50" w="100" h="48"/>
-        <options x="920" y="50" w="110" h="48"/>
+        <start icon="graphics/string/start.png" x="790" y="50" w="100" h="48"/>
+        <options icon="graphics/string/options.png" x="920" y="50" w="110" h="48"/>
     </frame>
     <system>
     </system>
     <data>
-        <dataInterface/>
-        <dataInterface/>
+        <dataInterface type="local">
+            <dto playerName="none" score="0"/>
+            <dto playerName="none" score="0"/>
+            <dto playerName="none" score="0"/>
+            <dto playerName="none" score="0"/>
+        </dataInterface>
+        <dataInterface type="database">
+        </dataInterface>
     </data>
 </game>

@@ -2,14 +2,14 @@ package cn.quicy.tetris.dto;
 /** 
  * @author  quicy
  */
-public class LeaderBoardsDto 
+public class LeaderBoardsDto
 {
 	private String name;
 	private int score;
 	public LeaderBoardsDto()
 	{
-		this.name = "none";
-		this.score = 0;
+		this.name = "quicy";
+		this.score = 30;
 	}
 	public LeaderBoardsDto(String name, int score) 
 	{

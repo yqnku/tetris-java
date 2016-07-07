@@ -21,7 +21,10 @@ import cn.quicy.tetris.dto.GameDto;
 import cn.quicy.tetris.ui.Layer;
 /**
  * Game Panel
+ * 游戏界面
+ * 包括各个界面层的创建
  * @author quicy
+ * @version 1.0
  */
 public class JPanelGame extends JPanel
 {
@@ -36,16 +39,18 @@ public class JPanelGame extends JPanel
 	 */
 	private List<Layer> layers = null;
 	/**
-	 * Start and pause button
+	 * Start，pause and restart button
 	 */
 	private JButton jButtonStart = null;
 	/**
-	 * Configure button
+	 * Options button
 	 */
-	private JButton jButtonConfig = null;
+	private JButton jButtonOptions = null;
+	private PlayerController playerController = null;
 	/**
 	 * Constructor
-	 * @param gameDto
+	 * Initialize components
+	 * @param gameDto Game data transfer object
 	 */
 	public JPanelGame(GameDto gameDto)
 	{
@@ -62,9 +67,12 @@ public class JPanelGame extends JPanel
 	 */
 	private void addConfigButton()
 	{
-		this.jButtonConfig = new JButton(new ImageIcon("graphics/string/options.png"));
-		this.jButtonConfig.setBounds(GameConfig.getFrameConfig().getOptionsButton().getX(), GameConfig.getFrameConfig().getOptionsButton().getY(),GameConfig.getFrameConfig().getOptionsButton().getW(),GameConfig.getFrameConfig().getOptionsButton().getH());
-		this.jButtonConfig.addActionListener(new ActionListener() 
+		//TODO 写在配置文件里呗
+		this.jButtonOptions = new JButton(new ImageIcon("graphics/string/options.png"));
+		//设置位置大小
+		this.jButtonOptions.setBounds(GameConfig.getFrameConfig().getOptionsButton().getX(), GameConfig.getFrameConfig().getOptionsButton().getY(),GameConfig.getFrameConfig().getOptionsButton().getW(),GameConfig.getFrameConfig().getOptionsButton().getH());
+		//TODO 设置按钮功能
+		this.jButtonOptions.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
@@ -72,35 +80,41 @@ public class JPanelGame extends JPanel
 				System.out.println("config");
 			}
 		});
-		this.add(jButtonConfig);
+		this.add(jButtonOptions);
 	}
 	/**
 	 * Get game controller
-	 * @param playerControl
+	 * @param playerController 玩家控制器
 	 */
-	public void getGameController(PlayerController playerControl)
+	public void setPlayerController(PlayerController playerController)
 	{
-		this.addKeyListener(playerControl);
-		this.Start(playerControl);
+		this.playerController = playerController;
+		this.addKeyListener(this.playerController);
+		this.Start();
 	}
 	/**
-	 * Set start/pause button
-	 * @param playerController
+	 * Set start/pause/restart button
+	 * @param playerController 玩家控制器
 	 */
-	private void Start(final PlayerController playerController)
+	private void Start()
 	{
+		//TODO 配置文件
 		this.jButtonStart = new JButton(new ImageIcon("graphics/string/start.png"));
+		//设置大小位置
 		this.jButtonStart.setBounds(GameConfig.getFrameConfig().getStartButton().getX(), GameConfig.getFrameConfig().getStartButton().getY(),GameConfig.getFrameConfig().getStartButton().getW(), GameConfig.getFrameConfig().getStartButton().getH());
 		//响应Enter键
 		InputMap inputMap = jButtonStart.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap actionMap = jButtonStart.getActionMap();
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),"enter");
-        actionMap.put("enter", new AbstractAction(){
+        actionMap.put("enter", new AbstractAction()
+        {
         	private static final long serialVersionUID = 1L;
-					public void actionPerformed(ActionEvent event) {
-		                startPauseClick(playerController);
-		            }
+			public void actionPerformed(ActionEvent event) 
+			{
+                startPauseClick(playerController);
+		    }
 		});
+        //按钮按下的反应
 		this.jButtonStart.addActionListener(new ActionListener()
 		{
 			@Override
@@ -150,7 +164,13 @@ public class JPanelGame extends JPanel
 			this.jButtonStart.setIcon(new ImageIcon("graphics/string/pause_button.png"));
 		}
 	}
-	
+	/**
+	 * 判断两个boolean数组是否完全一样
+	 * 从而判断当前游戏的状态
+	 * @param bool1 第一个boolean数组
+	 * @param bool2 第二个boolean数组
+	 * @return bool1.isEqual(bool2)
+	 */
 	private boolean isEqualBool(boolean[] bool1,boolean[] bool2)
 	{
 		for (int i = 0; i < bool1.length; i++) 
@@ -162,18 +182,23 @@ public class JPanelGame extends JPanel
 		}
 		return true;
 	}
-	
+	/**
+	 * 获得开始/暂停/重新开始按钮
+	 * @return jbuttonstart
+	 */
 	public JButton getjButtonStart()
 	{
 		return this.jButtonStart;
 	}
 	/**
 	 * Set Layers
+	 * 利用反射创建对象
 	 */
 	private void setLayers()
 	{
 		try 
 		{
+			//获得配置文件
 			List<LayerConfig> layerConfigs = GameConfig.getFrameConfig().getLayerConfigs();
 			//创建游戏层数组
 			layers = new ArrayList<Layer>(layerConfigs.size());
@@ -188,6 +213,8 @@ public class JPanelGame extends JPanel
 				Constructor<?> ctrConstructor = clsClass.getConstructor(int.class,int.class,int.class,int.class);
 				//调用构造函数创建对象
 				Layer layer  = (Layer)ctrConstructor.newInstance(layerConfig.getX(),layerConfig.getY(),layerConfig.getW(),layerConfig.getH());
+				//配置游戏数据
+				layer.setGameDto(gameDto);
 				layers.add(layer);
 			}
 		}
@@ -206,10 +233,9 @@ public class JPanelGame extends JPanel
 		this.setLayers();
 		for(Layer layer : layers)
 		{
-			layer.setGameDto(gameDto);
 			layer.Paint(g);
 		}
-		//Key Event
+		//Key Event will work
 		this.requestFocus();
 	}
 }

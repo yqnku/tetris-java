@@ -21,11 +21,12 @@ public class Start
 		//Create player controller(Connect game controller)
 		PlayerController playerController = new PlayerController(gameController);
 		//Install player controller
-		jPanelGame.getGameController(playerController);
+		jPanelGame.setPlayerController(playerController);
 		//Create game frame(Install game panel)
 		new JFrameGame(jPanelGame);
 		
 		//TODO ！！！！要做的事情！！！！
+		//把现在的思路理一理
 		//在做-----硬编码问题，写配置文件
 		//在做-----设置按钮，主题啥的
 		//本地记录
@@ -34,5 +35,6 @@ public class Start
 		//美观，背景音乐
 		//注释还是要好好补的
 		//游戏结束后保存记录
+		//网络？
 	}
 }

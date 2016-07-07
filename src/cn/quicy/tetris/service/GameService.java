@@ -54,6 +54,7 @@ public class GameService
 	}
 	private void updateLevel() 
 	{
+		//TODO 分数/配置文件
 		int[] levelScore = {-1,200,400,600,800,1000,1500,2000,2500,3000};
 		int score = this.gameDto.getNowScores();
 		for (int i = 0; i < levelScore.length; i++) 
